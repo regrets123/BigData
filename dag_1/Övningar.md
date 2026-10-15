@@ -7,6 +7,11 @@ En anläggning har 2 500 maskiner. Varje maskin producerar ett meddelande på 16
 Beräkna ungefär byte per sekund, GB per dygn och TB per år. Hur förändras lagringsbehovet om systemet sparar tre kopior?
 
 Skriv också två antaganden som beräkningen inte tar hänsyn till.
+2500x320 == 800mb bytes per sekund.
+800mb x 60 x 24 == 1152000mb == 1152gb per dygn.
+1152 x 356 == 410gb
+Det tredubblas om vi ska ha 3 kopior. Det tar inte hänsyn till trasiga maskiner eller sensorer som kan sorteras bort ur datan.
+Eller felaktiga värden.
 
 ## Övning 2 – Läs datasetets dokumentation
 
@@ -17,9 +22,13 @@ https://archive.ics.uci.edu/dataset/601/ai4i+2020+predictive+maintenance+dataset
 Besvara:
 
 1. Är datan verklig eller syntetisk?
+Syntetisk
 2. Vad representerar en rad?
+Ett värde och dess egenskaper.
 3. Vilka kolumner är mätvärden?
+Allt efter type.
 4. Vilken kolumn är målvariabel?
+Beror på vilket mål vi har. 
 5. Vilka kolumner är identifierare?
 6. Vilka kolumner riskerar att läcka svaret till en ML-modell?
 7. Vilken licens gäller?
@@ -49,12 +58,11 @@ print(data.describe())
 
 Besvara:
 
-1. Hur många rader och kolumner finns?
-2. Finns saknade värden eller dubbletter?
-3. Hur stor andel av raderna har `Machine failure == 1`?
-4. Vad betyder `Type`?
-5. Varför bör `UDI` och `Product ID` normalt inte användas som numeriska features?
-6. Varför kan `TWF`, `HDF`, `PWF`, `OSF` och `RNF` ge dataläckage?
+1. Hur många rader och kolumner finns? 5 rader 14 columner. totalt 10 000 och 14.
+2. Finns saknade värden eller dubbletter? Nej
+3. Hur stor andel av raderna har `Machine failure == 1`? 3.39%, alltså 339 fel.
+4. Vad betyder `Type`? Kvalitets id för low medium high. L M H. 
+5. Varför bör `UDI` och `Product ID` normalt inte användas som numeriska features? UID är unique id, product id är variant specifik id samt innehåller kvalitets id type. 
 
 Beräkna felandelen:
 
